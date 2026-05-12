@@ -48,7 +48,7 @@ Backend/
 Clone the repository:
 
 ```bash
-git clone YOUR_REPO_LINK_HERE
+git clone git@github.com:Noodlesoup29/Back-Door.git
 ```
 
 Go into the project folder:
