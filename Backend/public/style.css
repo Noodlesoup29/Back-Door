@@ -95,7 +95,7 @@ body {
 
 .gif-section {
     width: 100vw;
-    height: 100vh;
+    height: 130vh;
     background-image: url("/Photos/Background-gif.gif");
     background-size: cover;
     background-position: center;
@@ -108,7 +108,7 @@ body {
     width: 85vw;
     height: 40vh;
     position: relative;
-    top: 60%;
+    top: 70%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
