@@ -68,8 +68,7 @@ npm install
 Create a `.env` file in the root of the `Backend` folder:
 
 ```env
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
+PORT=8080
 ```
 
 ## Running the Project
@@ -82,7 +81,7 @@ nodemon app.js
 Then open:
 
 ```txt
-http://localhost:3000/home
+http://localhost:8080/home
 ```
 
 ## Routes
