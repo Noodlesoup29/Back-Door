@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Stack+Sans+Text:wght@200..700&display=swap');
+
+:root {
+  --green-dark: #4F6840;
+  --green-main: #9CAF80;
+  --green-light: #C7D1B5;
+
+  --cream: #F8F2E8;
+  --sand: #DED0AE;
+
+  --charcoal: #2F2F2F;
+  --black-soft: #171717;
+  --white-soft: #FAFAF7;
+
+  --accent-gold: #D9A441;
+  --accent-rust: #B85C38;
+
+  --success: #6FA36F;
+  --warning: #D9A441;
+  --danger: #B84A3A;
+}
+
+/*-------------------BRAUD STYLES--------------*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/*-------------------CLASS STYLES--------------*/
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.child-flex-2-center-close {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-show {
+    opacity: 1;
+    transition: opacity 0.9s ease;
+}
+
+.item-hide {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.icon-enlarge {
+    font-size: 90px;
+}
+
+.navbar {
+    background-color: rgba(209, 216, 192, 0.9);
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 2%;
+    transform: translate(-50%, 0);
+    z-index: 10;
+    padding: 10px 50px;
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-item {
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+}
+
+.nav-item > a {
+    text-decoration: none;
+    color: black;
+}
+
+.footer-container {
+    height: 65vh;
+    background-color: var(--charcoal);
+    color: var(--cream);
+    display: grid;
+    position: relative;
+
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas: "brand pages socials" "copyright pages inquiries";
+
+    gap: 2rem;
+    padding: 4rem;
+}
+
+.footer-brand-section {
+    grid-area: brand;
+    display: flex;
+    align-items: top;
+}
+
+.footer-brand-section img {
+    width: 120px;
+    height: 120px;
+}
+
+.footer-copyright-section {
+    grid-area: copyright;
+    margin-top: auto;
+}
+
+.footer-pages-section {
+    grid-area: pages;
+}
+
+.footer-socials-section {
+    grid-area: socials;
+}
+
+.footer-inquiries-section {
+    grid-area: inquiries;
+}
+
+.footer-lists {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-lists li {
+    margin: 20px 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+.footer-lists li a{
+    text-decoration: none;
+}
+
+.footer-lists li a:hover {
+    text-decoration: underline;
+}
+
+.footer-container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -60px;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0),
+        var(--charcoal)
+    );
+    pointer-events: none;
+}
+
+/*-------------------ID STYLES--------------*/
+
+#nav-ul {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  margin: 0;
+}
+
+#nav-icon {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    margin: -5px 0;
+}
+

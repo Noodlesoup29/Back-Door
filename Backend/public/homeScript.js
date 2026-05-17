@@ -27,7 +27,9 @@ function resetScrollTimer() {
 window.addEventListener("scroll", () => {
 
     resetScrollTimer();
+    window.scrollTo(0, window.scrollY); //Prevent right scroll
 
 });
+
 
 resetScrollTimer();

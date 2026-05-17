@@ -1,0 +1,35 @@
+/*-------------------CLASS STYLES--------------*/
+
+.contact-main {
+    min-height: 100vh;
+    background-color: var(--green-main);
+    padding: 15vh 5vw 0vh 5vw
+}
+
+.contact-container {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    row-gap: 5rem;
+}
+
+
+/*-------------------ID STYLES--------------*/
+
+#subject-header {
+    width:70%;
+    min-height: 5vh;
+    padding-left: 10px;
+    margin-bottom: 25px;
+}
+
+#subject-body {
+    width:70%;
+    margin-bottom: 25px;
+    min-height: 30vh;
+    padding: 10px;
+
+    font-family: "Open Sans", sans-serif;;
+
+    resize: none;
+}
