@@ -6,30 +6,90 @@
     <title>Document</title>
 
     <link rel = "stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 </head>
+
+<%- include('partials/navbar') %>
+
 <body>
-    
-    <%- include('partials/navbar') %>
 
-    <body>
+    <div id = "home-gif-bg">
 
-        <div id = "home-gif-bg">
+        <span class = "child-flex-2-center-close">
+            <img class = "home-gif-img" src = "Photos/Astrorose%20Design%20Figma.png">
+        </span>
+        <div class = "child-flex-2-center-close">
+            <p style = "margin-right: auto;" class = "home-gif-text">Save file editing,<br> <span style = "font-weight: bold;">made simple</span></p>
+        </div>
 
-            <div></div>
+    </div>
 
-            <img src = "Photos/Astrorose%20Design%20Figma.png">
-            <div>
-                Make save file manipulation easy
+    <p id = "scroll-elm">Scroll to view more</p>
+
+    <main id = "home-main">
+        
+        <div class = "flex-center main-problem-section">
+
+            <span class = "child-flex-2-center-close">
+                <img class = "main-problem-img" src = "Photos/Problem_section_photo.png">
+            </span>
+            <div class = "child-flex-2-center-close">
+                <span class = "main-problem-container">
+                    <h1>The Problem</h1>
+                    <p>
+                        
+                        Editing game save files is often a tedius and manual process.
+                        Players need to locate the save file, decode them using separate tools,
+                        edit the raw data by hand, then re-encode everything correctly before
+                        replacing the original save file. With such little margin of error,
+                        one mistake could corrupt the save and break the game.
+
+                        <br><br>
+
+                        BackDoor simplifies this process by turning supported save files into 
+                        editable fields, helping users make changes safely without needing to work 
+                        directly with raw JSON or encoded data.
+                    </p>
+                </span>
             </div>
 
         </div>
 
-        <main id = "home-main">
-            Hello
-        </main>
+        <div class = "gif-section">
+            <div class = "gif-section-container">
+                
+                <div class = "gif-section-container-inner">
+                    <div class = "gif-section-block">
+                        <i class="fa-solid fa-floppy-disk icon-enlarge"></i>
+                        <h3>Supported Uploads</h3>
+                    </div>
+                    <p>Import save files from supported games.</p>
+                </div>
 
-    </body>
+                <div class = "gif-section-container-inner">
+                    <div class = "gif-section-block">
+                        <i class="fa-solid fa-pen-to-square icon-enlarge"></i>
+                        <h3>Clean Editing</h3>
+                    </div>
+                    <p>Edit decoded values in a simple interface.</p>
+                </div>
+
+                <div class = "gif-section-container-inner">
+                    <div class = "gif-section-block">
+                        <i class="fa-solid fa-file-export icon-enlarge"></i>
+                        <h3>Export Safely</h3>
+                    </div>
+                    <p>Download a properly encoded save file.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
 
 </body>
+
 </html>
