@@ -3,7 +3,7 @@
 .contact-main {
     min-height: 100vh;
     background-color: var(--green-main);
-    padding: 15vh 5vw 0vh 5vw
+    padding: 10vh 5vw 0vh 5vw
 }
 
 .contact-container {
@@ -13,23 +13,34 @@
     row-gap: 5rem;
 }
 
+.subject-style {
+    min-height: 5vh;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: var(--green-dark);
+    border-width: 3px;
+}
+
+.subject-text {
+    font-weight: bold;
+}
 
 /*-------------------ID STYLES--------------*/
 
 #subject-header {
-    width:70%;
-    min-height: 5vh;
-    padding-left: 10px;
-    margin-bottom: 25px;
+    width:80%;
+}
+
+#subject-email {
+    width:80%;
 }
 
 #subject-body {
-    width:70%;
-    margin-bottom: 25px;
+    width:79%;
     min-height: 30vh;
-    padding: 10px;
-
+    padding-top: 10px;
     font-family: "Open Sans", sans-serif;;
-
     resize: none;
 }

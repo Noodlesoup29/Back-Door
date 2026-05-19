@@ -19,16 +19,21 @@
     
     <main class = "contact-main">
 
-        <h1 style = "font-size: 48px; margin-bottom: 5vh;">Contact Us</h1>
+        <h1 style = "font-size: 48px; margin-bottom: 1vh;">Contact Us</h1>
 
         <div class = "contact-container">
 
             <div class = "contact-container-child">
                 
                 <form id = "gmail-form">
-                    <input name = "subject-header" id = "subject-header" type="text" placeholder="Subject Header">
+                    <p class = "subject-text">Full Name</p>
+                    <input class = "subject-style" name = "subject-header" id = "subject-header" type="text" placeholder="Enter your full name here...">
                     <br>
-                    <textarea name = "subject-body" id = "subject-body" type="text" placeholder="Subject Body..."></textarea>
+                    <p class = "subject-text">Email Address</p>
+                    <input class = "subject-style" name = "subject-email" id = "subject-email" type="text" placeholder="Enter your email address here...">
+                    <br>
+                    <p class = "subject-text">Subject Body</p>
+                    <textarea class = "subject-style" name = "subject-body" id = "subject-body" type="text" placeholder="Enter your message here..."></textarea>
                     <br>
                     <button name = "subject-submit" id = "subject-submit">Submit</button>
                 </form>
