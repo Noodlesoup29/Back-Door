@@ -41,15 +41,18 @@
     width:79%;
     min-height: 20vh;
     padding-top: 15px;
-    font-family: "Open Sans", sans-serif;;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 15px;
     resize: none;
 }
 
 #subject-submit {
-    width: 10vw;
-    height: 2vw;
+    width: 15vw;
+    height: 3vw;
     border-radius: 25px;
     border-color: var(--green-dark);
+    background-color: var(--success);
+    color: var(--cream);
     border-style: solid;
     border-width: 3px;
 }

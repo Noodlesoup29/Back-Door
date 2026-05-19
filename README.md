@@ -22,27 +22,6 @@ Back Door is a Node.js, Express, EJS, and MongoDB web application designed to he
 - Reusable EJS partials
 - Static image and GIF support
 
-## Project Structure
-
-```txt
-Backend/
-├── public/
-│   ├── Photos/
-│   └── style.css
-├── views/
-│   ├── game pages/
-│   ├── partials/
-│   │   └── navbar.ejs
-│   ├── contact-us.ejs
-│   ├── home.ejs
-│   └── supported-games.ejs
-├── .env
-├── .gitignore
-├── app.js
-├── package.json
-└── README.md
-```
-
 ## Installation
 
 Clone the repository:
@@ -65,11 +44,14 @@ npm install
 
 ## Environment Variables
 
-Create a `.env` file in the root of the `Backend` folder:
+Create a `.env` file in the root of the `Backend` folder using `.env.example` as a guide:
 
-```env
-PORT=8080
-```
+`.env.example` notes:
+- `EMAIL_USER`: The email "from". Uses an "app key" and can be any gmail account
+- `EMAIL_PASS`: Obtained by going to your google acc and searching "App Passwords". Create one and copy it here with NO spaces
+- `EMAIL_RECEIVER`: Email "to". Use your personal or junk email.
+
+`EMAIL_USER` and `EMAIL_RECEIVER` can be the same. It just means that `EMAIL_USER` will send an email to `EMAIL_RECEIVER`, so "johndoe@gmail.com --sends email--> johndoe@gmail.com"
 
 ## Running the Project
 

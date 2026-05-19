@@ -25,17 +25,28 @@
 
             <div class = "contact-container-child">
                 
-                <form id = "gmail-form">
+                <form id = "gmail-form" action="/contact/send" method="POST">
+
                     <p class = "subject-text">Full Name</p>
-                    <input class = "subject-style" name = "subject-header" id = "subject-header" type="text" placeholder="Enter your full name here...">
+                    <input class = "subject-style" name = "subject-header" id = "subject-header" type="text" placeholder="Enter your full name here..." required>
+                    
                     <br>
+
                     <p class = "subject-text">Email Address</p>
-                    <input class = "subject-style" name = "subject-email" id = "subject-email" type="text" placeholder="Enter your email address here...">
+                    <input class = "subject-style" name = "subject-email" id = "subject-email" type="text" placeholder="Enter your email address here..." required>
+                    
                     <br>
+
                     <p class = "subject-text">Subject Body</p>
-                    <textarea class = "subject-style" name = "subject-body" id = "subject-body" type="text" placeholder="Enter your message here..."></textarea>
+                    <textarea class = "subject-style" name = "subject-body" id = "subject-body" type="text" placeholder="Enter your message here..." required></textarea>
+                    
                     <br>
-                    <button name = "subject-submit" id = "subject-submit">Submit</button>
+
+                    <section style = "display: flex; justify-content: space-between; align-items: center; width: 80%">
+                        <button name = "subject-submit" id = "subject-submit">Submit</button>
+                        <p id = "subject-submit-text" style = "font-weight: bold; text-align: right; font-size: 18px; opacity: 0;">Placeholder</p>
+                    </section>
+
                 </form>
 
             </div>
@@ -49,5 +60,7 @@
     </main>
 
 </body>
+
+<%- include('partials/footer') %>
 
 </html>

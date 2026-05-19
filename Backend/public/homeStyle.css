@@ -5,7 +5,7 @@
     padding-top: 30vh;
     padding-bottom: 40vh;
     margin: 0 auto;
-    gap: 5vw;
+    gap: 0vw;
     position: relative;
 }
 
@@ -34,7 +34,8 @@
 }
 
 .main-problem-img {
-    width: 30vw;
+    width: 20vw;
+    padding-right: 10vw;
     height: auto;
 }
 
@@ -99,7 +100,7 @@
 
     display: flex;
     justify-content: center;
-    gap: 5vw;
+    gap: 3vw;
     align-items: center;
 
     position: relative;
@@ -138,9 +139,8 @@
 
 #home-video-bg .home-gif-img {
     position: relative;
-    margin-left: auto;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: auto;
 }
 
 #home-main {
