@@ -78,48 +78,65 @@
     font-size: 30px;
 }
 
+.home-bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    object-fit: cover;
+    z-index: -1;
+}
+
 /*-------------------ID STYLES--------------*/
 
-#home-gif-bg {
-    height: 100vh;
+#home-video-bg {
+    min-height: 100vh;
     width: 100%;
-    background-image: url("/Photos/Background-gif.gif");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     overflow: hidden;
+
     display: flex;
     justify-content: center;
     gap: 5vw;
     align-items: center;
+
     position: relative;
 }
 
-#home-gif-bg:after {
+#home-video-bg::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
+
     width: 100%;
     height: 60px;
+
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0),
         var(--green-main)
     );
+
     pointer-events: none;
+    z-index: 1;
 }
 
-#home-gif-bg > div {
+#home-video-bg > div {
+    position: relative;
+    z-index: 2;
+
     font-size: 36px;
     height: 200px;
     color: var(--cream);
+
     display: flex;
     align-items: center;
 }
 
-#home-gif-bg .home-gif-img {
+#home-video-bg .home-gif-img {
     position: relative;
     margin-left: auto;
     width: 300px;

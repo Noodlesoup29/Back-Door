@@ -15,7 +15,7 @@
 
 .subject-style {
     min-height: 5vh;
-    padding-left: 10px;
+    padding-left: 15px;
     margin-bottom: 5px;
     border-radius: 25px;
     border-style: solid;
@@ -39,8 +39,17 @@
 
 #subject-body {
     width:79%;
-    min-height: 30vh;
-    padding-top: 10px;
+    min-height: 20vh;
+    padding-top: 15px;
     font-family: "Open Sans", sans-serif;;
     resize: none;
+}
+
+#subject-submit {
+    width: 10vw;
+    height: 2vw;
+    border-radius: 25px;
+    border-color: var(--green-dark);
+    border-style: solid;
+    border-width: 3px;
 }
