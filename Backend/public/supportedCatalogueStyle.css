@@ -7,7 +7,7 @@
 
 /*-------------------CLASS STYLES--------------*/
 
-.catalogue-main {
+.catalog-main {
     background-color: var(--green-main);
     min-height: 100vh;
     padding: 15vh 5vw 25vh 5vw;
@@ -81,7 +81,7 @@
     justify-items: center;
 }
 
-#catalogue-heading{
+#catalog-heading{
     margin-bottom: 6vh;
     padding: 0vh 0vw 0vh 5vw;
 }
