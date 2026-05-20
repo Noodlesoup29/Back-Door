@@ -66,6 +66,11 @@ Then open:
 http://localhost:8080/home
 ```
 
+Or if that doesn't work:
+```txt
+http://localhost:3000/home
+```
+
 ## Routes
 
 | Route | Page |
