@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackDoor</title>
+
+    <link rel = "stylesheet" href="../generalStyle.css">
+    <link rel = "stylesheet" href="../game-page.css">
+    <script src="../hyperlight-drifter.js" defer></script>
+
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+</head>
+
+<%- include('../partials/navbar') %>
+
+<body>
+    
+    <main class = "catalog-main">
+
+        <div class = "catalog-container">
+
+            <h1>Hyperlight Drifter Decoder</h1>
+
+            <section class = "catalog-upload-form-container">
+                <form id="upload-form">
+
+                    <label for="save-file-input" class="drop-zone" id="drop-zone">
+
+                        <section style = "display: flex; justify-content: center; align-items: center; font-size: 1.5rem; gap: 1rem">
+                            <i class="fa-solid fa-upload"></i>
+                            <p>Please Upload File Here...</p>
+                        </section>
+
+                        <input
+                            id="save-file-input"
+                            name="saveFile"
+                            type="file"
+                            accept=".json,.sav,.txt"
+                            hidden
+                        >
+
+                    </label>
+
+                </form>
+
+            </section>
+
+            <section class = "catalog-download-btn-container">
+                <button id = "file-download-btn">Download</button>
+            </section>
+
+        </div>
+
+        <div id = "catalog-description-body">
+            <div id="catalog-description-text">
+
+                <h1 class = "catalog-desc-header">Save File Location</h1>
+                <p class = "catalog-desc-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique asperiores repellendus, laudantium, ipsam, et consequatur velit doloribus magni quos unde beatae excepturi vero error eius quis dignissimos voluptatem id. In.</p>
+                
+                <h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
+                <p class = "catalog-desc-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique asperiores repellendus, laudantium, ipsam, et consequatur velit doloribus magni quos unde beatae excepturi vero error eius quis dignissimos voluptatem id. In.</p>
+                
+            </div>
+        </div>
+
+    </main>
+
+</body>
+
+<%- include('../partials/footer') %>
+
+</html>

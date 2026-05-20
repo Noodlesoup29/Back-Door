@@ -24,7 +24,7 @@ class Game {
 const games = [];
 
 games.push(new Game("Undertale", "/", "/"));
-games.push(new Game("Hyperlight Drifter", "/", "/"));
+games.push(new Game("Hyperlight Drifter", "/", "/games/hyperlight-drifter"));
 games.push(new Game("Celeste", "/", "/"));
 games.push(new Game("Subnautica", "/", "/"));
 

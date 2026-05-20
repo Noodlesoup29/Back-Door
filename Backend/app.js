@@ -39,6 +39,10 @@ app.get('/supported-games', (req, res) => {
     res.render('supported-games');
 })
 
+app.get('/games/hyperlight-drifter', (req, res) => {
+    res.render("game-pages/hyperlight-drifter");
+})
+
 app.post("/contact/send", async (req, res) => {
 
     try {
