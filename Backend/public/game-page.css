@@ -1,0 +1,91 @@
+.catalog-main {
+    background-color: var(--green-main);
+    min-height: 105vh;
+    padding-top: 12vh;
+}
+
+.catalog-container {
+    width: 90vw;
+    height: 80vh;
+    margin: 0 auto;
+}
+
+.catalog-container h1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+
+.catalog-container .catalog-upload-form-container{
+    height: 55vh;
+    display: flex;
+    margin-bottom: 5vh;
+    justify-content: center;
+}
+
+.catalog-container .catalog-download-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.catalog-desc-header {
+
+}
+
+.catalog-desc-text {
+    font-size: 18px;
+    margin-bottom: 4rem;
+}
+
+#upload-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 25px;
+    width: 60%;
+    background-color: var(--cream);
+    border-style: dashed;
+    border-color: #cfcfcf;
+    border-width: 5px;
+}
+
+#catalog-description-body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #7a9254;
+}
+
+#catalog-description-text {
+    width: 70%;
+    color: var(--cream);
+    min-height: 60vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+#file-download-btn {
+    width: 20vw;
+    height: 6vh;
+    border-radius: 25px;
+    border-style: solid;
+    background-color: var(--cream);
+    border-color: #cfcfcf;
+    border-width: 3px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    filter: brightness(100%);
+    transform: scale(1, 1);
+    transition: filter 0.05s ease-out;
+}
+
+#file-download-btn:hover {
+    filter: brightness(90%);
+}
+
+#file-download-btn:active {
+    transform: scale(0.98, 0.98);
+}
