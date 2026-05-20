@@ -87,7 +87,13 @@
 }
 
 #search-bar{
-    width: 15vw;
+    width: 18vw;
+    height: 5vh;
+    padding-left: 0.8rem;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--green-dark);
     margin-bottom: 2vh;
 }
 
