@@ -16,26 +16,91 @@
     margin-bottom: 5vh;
 }
 
-.catalog-container .catalog-upload-form-container{
+.catalog-container .catalog-upload-form-container {
     height: 55vh;
     display: flex;
     margin-bottom: 5vh;
     justify-content: center;
 }
 
-.catalog-container .catalog-download-btn-container{
+.catalog-container .catalog-download-btn-container {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.catalog-desc-header {
-
-}
-
 .catalog-desc-text {
     font-size: 18px;
     margin-bottom: 4rem;
+}
+
+.form-field-container-row {
+    grid-column: span 1;
+    height: 4.5vh;
+    width: 90%;
+    max-width: 100%;
+    min-width: 0;
+
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.form-field-name, .form-field-value {   
+    text-align: left;
+    padding: 5px 0;
+    height:100%;
+    max-width: 50vw;
+    background-color: #e5e0d8;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 25px;
+    border-color: #cfcbc5;
+    margin: 0;
+    min-height: 4.5vh;
+    padding: 5px 1rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.form-field-name {
+    flex: 1;
+    min-width: 0;
+
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.form-field-value {
+    flex: 2;
+    min-width: 0;
+    max-width: 100%;
+
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.form-field-mini-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+}
+
+.form-field-container-row .form-field-mini-container:first-child {
+    flex: 1;
+}
+
+.form-field-container-row .form-field-mini-container:nth-child(2) {
+    flex: 2;
+}
+
+.form-field-name-label {
+    margin: 0 auto 0.5rem auto;
 }
 
 #upload-form {
@@ -49,6 +114,8 @@
     border-style: dashed;
     border-color: #cfcfcf;
     border-width: 5px;
+
+    
 }
 
 #catalog-description-body {
@@ -88,4 +155,21 @@
 
 #file-download-btn:active {
     transform: scale(0.98, 0.98);
+}
+
+#upload-form-field-container {
+    display: none;
+    width: 95%;
+    height: 90%;
+    padding-top: 3rem;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+    grid-auto-rows: 12vh;
+    justify-items: center;
+    align-items: start;
+    
 }
