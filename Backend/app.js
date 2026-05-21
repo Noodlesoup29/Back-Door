@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
+const {decodeHyperlight, encodeHyperlight} = require("./decoding_algorithms/hyperlight-decoder");
+
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -42,6 +44,32 @@ app.get('/supported-games', (req, res) => {
 app.get('/games/hyperlight-drifter', (req, res) => {
     res.render("game-pages/hyperlight-drifter");
 })
+
+app.post("/decoder/hyper-light", (req, res) => {
+
+    const fileText = req.body.fileText;
+
+    const decodedText = decodeHyperlight(fileText);
+
+    res.json({
+        success: true,
+        decodedText: decodedText
+    }); 
+
+});
+
+app.post("/encoder/hyper-light", (req, res) => {
+
+    const reqBody = req.body;
+
+    const decodedText = encodeHyperlight(reqBody.originalFileText, reqBody.updatedJson);
+
+    res.json({
+        success: true,
+        decodedText: decodedText
+    }); 
+
+});
 
 app.post("/contact/send", async (req, res) => {
 
