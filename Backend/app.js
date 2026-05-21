@@ -41,9 +41,32 @@ app.get('/supported-games', (req, res) => {
     res.render('supported-games');
 })
 
-app.get('/games/hyperlight-drifter', (req, res) => {
-    res.render("game-pages/hyperlight-drifter");
-})
+app.get("/games/:gameName", (req, res) => {
+
+    const gameData = {
+        "hyperlight-drifter": {
+            descriptionPartial: "partials/catalog_descriptions/hyperlight-catalog",
+            nameAsString : "Hyperlight Drifter Decoder"
+        },
+        "undertale": {
+            descriptionPartial: "partials/catalog_descriptions/undertale-catalogue",
+            nameAsString : "Undertale Decoder"
+        }
+    };
+
+    const gameName = req.params.gameName;
+    const game = gameData[gameName];
+
+    if (!game) {
+        return res.status(404).send("Game not found");
+    }
+
+    res.render("game-specific", {
+        gameName,
+        game
+    });
+    
+});
 
 app.post("/decoder/hyper-light", (req, res) => {
 
@@ -104,3 +127,4 @@ app.post("/contact/send", async (req, res) => {
 
     }
 });
+

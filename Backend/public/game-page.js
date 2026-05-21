@@ -3,11 +3,13 @@ const saveFile = document.getElementById("save-file-input");
 const dropZone = document.getElementById("drop-zone");
 const uploadFormTxt = document.getElementById("upload-form-field-container");
 const downloadBtn = document.getElementById("file-download-btn");
+const fieldSearchBar = document.getElementById("upload-form-field-search");
 
 let fileName = "";
 let initialFileValue = "";
 
 class Field {
+
     constructor(name, field) {
         this.name = name;
         this.field = field;
@@ -56,8 +58,9 @@ class Field {
     }
 }
 
-function getGameAPIDecoderEndpoint(url) {
+function getGameAPIDecoderEndpoint() {
 
+    let url = window.location.pathname;
     let currentURL = url.slice(7); //Slices "/games/" out
 
     switch (currentURL) {
@@ -72,8 +75,9 @@ function getGameAPIDecoderEndpoint(url) {
 
 }
 
-function getGameAPIEncoderEndpoint(url) {
+function getGameAPIEncoderEndpoint() {
 
+    let url = window.location.pathname;
     let currentURL = url.slice(7); //Slices "/games/" out
 
     switch (currentURL) {
@@ -102,12 +106,32 @@ function cleanFieldValue(value) {
     return value;
 }
 
+fieldSearchBar.addEventListener("input", (e) => {
+
+    const listOfElements = document.querySelectorAll(".form-field-container-row");
+    const searchValue = e.target.value.toLowerCase();
+
+    for (let row of listOfElements) {
+
+        const fieldNameElement = row.querySelector(".form-field-name");
+        const fieldName = fieldNameElement.textContent.toLowerCase();
+
+        const match = fieldName.includes(searchValue);
+        row.style.display = (match) ? ("") : ("none");
+
+    }
+
+})
+
 downloadBtn.addEventListener("click", async (e)=> {
 
     e.preventDefault();
 
     const rows = document.querySelectorAll(".form-field-container-row");
     const jsonObject = {};
+
+    if (rows.length === 0)
+        return;
 
     for (const row of rows) {
         const nameElement = row.querySelector(".form-field-name");
@@ -119,10 +143,7 @@ downloadBtn.addEventListener("click", async (e)=> {
         jsonObject[fieldName] = fieldValue;
     }
 
-    //console.log(initialFileValue)
-    //console.log(jsonObject)
-
-    const response = await fetch(getGameAPIEncoderEndpoint(window.location.pathname), {
+    const response = await fetch(getGameAPIEncoderEndpoint(), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -161,7 +182,7 @@ saveFile.addEventListener("change", async (e) => {
     initialFileValue = await file.text();
     fileName = file.name;
 
-    const response = await fetch(getGameAPIDecoderEndpoint(window.location.pathname), {
+    const response = await fetch(getGameAPIDecoderEndpoint(), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

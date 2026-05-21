@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackDoor</title>
 
-    <link rel = "stylesheet" href="../generalStyle.css">
-    <link rel = "stylesheet" href="../game-page.css">
-    <script src="../game-page.js" defer></script>
+    <link rel = "stylesheet" href="/generalStyle.css">
+    <link rel = "stylesheet" href="/game-page.css">
+    <script src="/game-page.js" defer></script>
 
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 </head>
 
-<%- include('../partials/navbar') %>
+<%- include('partials/navbar') %>
 
 <body>
     
@@ -21,19 +21,37 @@
 
         <div class = "catalog-container">
 
-            <h1>Hyperlight Drifter Decoder</h1>
+            <h1><%= game.nameAsString %></h1>
 
             <section class = "catalog-upload-form-container">
 
                 <form id="upload-form">
 
                     <div id = "upload-form-field-container">
+                        
+                        <div style = "display: flex; justify-content: center; align-items: center; width: 80%">
+                            <section style = "flex: 3">
+                                <input id = "upload-form-field-search" placeholder="Search for variables here...">
+                            </section>
+                            <section style = "flex: 1"> 
+                                <button id = "change-input-file-btn" for="change-input-file">
+                                    Change File...
+                                    <input
+                                        id="change-input-file"
+                                        name="changeFile"
+                                        type="file" 
+                                        accept=".json,.sav,.txt"
+                                        hidden
+                                    >
+                                </button>
+                            </section>
+                        </div>
 
                     </div>
 
                     <label for="save-file-input" class="drop-zone" id="drop-zone">
 
-                        <section style = "display: flex; justify-content: center; align-items: center; font-size: 1.5rem; gap: 1rem">
+                        <section id = "save-file-input-text">
                             <i class="fa-solid fa-upload"></i>
                             <p>Please Upload File Here...</p>
                         </section>
@@ -61,12 +79,8 @@
         <div id = "catalog-description-body">
             <div id="catalog-description-text">
 
-                <h1 class = "catalog-desc-header">Save File Location</h1>
-                <p class = "catalog-desc-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique asperiores repellendus, laudantium, ipsam, et consequatur velit doloribus magni quos unde beatae excepturi vero error eius quis dignissimos voluptatem id. In.</p>
-                
-                <h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
-                <p class = "catalog-desc-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique asperiores repellendus, laudantium, ipsam, et consequatur velit doloribus magni quos unde beatae excepturi vero error eius quis dignissimos voluptatem id. In.</p>
-                
+                <%- include(game.descriptionPartial) %>
+
             </div>
         </div>
 
@@ -74,6 +88,6 @@
 
 </body>
 
-<%- include('../partials/footer') %>
+<%- include('partials/footer') %>
 
 </html>
