@@ -69,10 +69,22 @@ export async function analyzeSaveFile(decodedJSON, gameName) {
             }
         ]
     })
+
+    return response.choices[0].message.content;
 }
 
-import fs from "fs";
+/*import fs from "fs";
 
 const raw = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Backend/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
 const structure = await detectSaveStructure(raw);
-console.log(structure);
+console.log(structure);*/
+
+import fs from "fs";
+import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
+
+const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Backend/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
+
+const decodedJSON = decodeHyperlight(rawText);
+
+const flags = await analyzeSaveFile(decodedJSON)
+console.log(flags);

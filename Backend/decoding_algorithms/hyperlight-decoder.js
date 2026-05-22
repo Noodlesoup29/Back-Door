@@ -1,4 +1,4 @@
-function decodeHyperlight(fileText) {
+export function decodeHyperlight(fileText) {
     
     const base64 = fileText.trim();
 
@@ -44,7 +44,7 @@ function decodeHyperlight(fileText) {
 
 }
 
-function encodeHyperlight(originalFileText, updatedJson) {
+export function encodeHyperlight(originalFileText, updatedJson) {
     
     const base64 = originalFileText.trim();
 
@@ -104,7 +104,3 @@ function encodeHyperlight(originalFileText, updatedJson) {
 
 }
 
-export {
-    decodeHyperlight,
-    encodeHyperlight
-};
