@@ -27,10 +27,10 @@ class Game {
 
 const games = [];
 
-games.push(new Game("Undertale", "/", "/"));
+games.push(new Game("Undertale", "/", "/games/undertale"));
 games.push(new Game("Hyperlight Drifter", "/", "/games/hyperlight-drifter"));
-games.push(new Game("Celeste", "/", "/"));
-games.push(new Game("Subnautica", "/", "/"));
+games.push(new Game("Celeste", "/", "/games/celeste"));
+games.push(new Game("Subnautica", "/", "/games/subnautica"));
 
 for (let game of games) {
     gameContainer.appendChild(game.createCard());

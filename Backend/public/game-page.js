@@ -67,8 +67,21 @@ function getGameAPIDecoderEndpoint() {
     switch (currentURL) {
 
         case "hyperlight-drifter":
-            return "/decoder/hyper-light";
+            return "/decoder/hyperlight-drifter";
         break;
+
+        case "undertale":
+            return "/decoder/undertale";
+        break;
+
+        case "celeste":
+            return "/decoder/celeste";
+        break;
+
+        case "subnautica":
+            return "/decoder/subnautica";
+        break;
+        
 
     }
 
@@ -84,7 +97,19 @@ function getGameAPIEncoderEndpoint() {
     switch (currentURL) {
 
         case "hyperlight-drifter":
-            return "/encoder/hyper-light";
+            return "/encoder/hyperlight-drifter";
+        break;
+
+        case "undertale":
+            return "/encoder/undertale";
+        break;
+
+        case "celeste":
+            return "/encoder/celeste";
+        break;
+
+        case "subnautica":
+            return "/encoder/subnautica";
         break;
 
     }
@@ -166,7 +191,7 @@ downloadBtn.addEventListener("click", async (e)=> {
 
     const result = await response.json();
 
-    const blob = new Blob([result.decodedText], {
+    const blob = new Blob([result.encodedText], {
         type: "application/octet-stream"
     })
 

@@ -1,0 +1,58 @@
+<h1 class = "catalog-desc-header">Save File Location</h1>
+
+<div style = "display: flex; justify-content: space-between; margin-bottom: 15vh;"> 
+    <div style = "flex: 2;">
+        <section class = "catalog-desc-container">
+            <h2 class = "catalog-desc-subheader">On Windows: </h3>
+            <code class = "catalog-desc-file-location">
+                C:\Users\[username]\AppData\Local\HyperLightDrifter
+            </code>
+        </section>
+
+        <section class = "catalog-desc-container">
+            <h2 class = "catalog-desc-subheader">On macOS: </h3>
+            <code class = "catalog-desc-file-location">
+                /Users/[username]/Library/Application Support/com.HeartMachine.HyperLightDrifter
+            </code>
+        </section>
+
+        <section class = "catalog-desc-container">
+            <h2 class = "catalog-desc-subheader">On Linux: </h3>
+            <code class = "catalog-desc-file-location">
+                /home/[username]/.config/HyperLightDrifter
+            </code>
+        </section>
+
+        <p class = "catalog-desc-text"> 
+            After locating the save folder, the file name is 
+            <code>HyperLight_RecordOfTheDrifter_0.sav</code><br>
+            Save a copy of this to a separate folder, then 
+            open that file on our converter.
+        </p>
+    </div>
+
+    <img style = "flex: 1">
+</div>
+
+<h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
+<p class = "catalog-desc-text">
+    Hyperight Drifter's save file is primarily encoded in <strong>base64</strong>.
+    This only applies to the JSON section. There is metadata before the JSON-encoded section
+    that is not in base64. We actually don't know what this section is encoded in. So the structure is really...
+</p>
+<p class = "catalog-desc-text">
+    <i class="fa-solid fa-arrow-right"></i> .sav = Metadata + JSON <br>
+    <i class="fa-solid fa-arrow-right"></i> .sav = {<em>Unknown Encoding Algorithm</em>} + {base64}
+</p>
+<p class = "catalog-desc-text" >
+    Here is the summary of how we decoded it:
+    <ol class = "catalog-desc-text" style = "margin-bottom: 15vh;">
+        <li>Take .sav raw save file</li>
+        <li>Convert text to raw bytes</li>
+        <li>Find first instance of "{" in raw bytes</li>
+        <li>Then find last instance of "}" in raw bytes</li>
+        <li>Split raw byte data into three sections: Metadata + JSON + after data</li>
+        <li>Then finally display ONLY the json data</li>
+    </ol>
+</p>
+        

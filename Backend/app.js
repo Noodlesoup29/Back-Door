@@ -49,9 +49,17 @@ app.get("/games/:gameName", (req, res) => {
             nameAsString : "Hyperlight Drifter Decoder"
         },
         "undertale": {
-            descriptionPartial: "partials/catalog_descriptions/undertale-catalogue",
+            descriptionPartial: "partials/catalog_descriptions/undertale-catalog",
             nameAsString : "Undertale Decoder"
-        }
+        },
+        "celeste": {
+            descriptionPartial: "partials/catalog_descriptions/celeste-catalog",
+            nameAsString : "Celeste Decoder"
+        },
+        "subnautica": {
+            descriptionPartial: "partials/catalog_descriptions/subnautica-catalog",
+            nameAsString : "Subnautica Decoder"
+        },
     };
 
     const gameName = req.params.gameName;
@@ -68,11 +76,28 @@ app.get("/games/:gameName", (req, res) => {
     
 });
 
-app.post("/decoder/hyper-light", (req, res) => {
+app.post("/decoder/:gameName", (req, res) => {
 
     const fileText = req.body.fileText;
+    const gameName = req.params.gameName;
+    
+    const decoders = {
+        "hyperlight-drifter": decodeHyperlight,
+        "undertale": decodeHyperlight,
+        "celeste": decodeHyperlight,
+        "subnautica": decodeHyperlight
+    };
 
-    const decodedText = decodeHyperlight(fileText);
+    const decoder = decoders[gameName];
+
+    if (!decoder) {
+        return res.status(404).json({
+            success: false,
+            message: "Unsupported game."
+        });
+    }
+
+    const decodedText = decoder(fileText);
 
     res.json({
         success: true,
@@ -81,15 +106,35 @@ app.post("/decoder/hyper-light", (req, res) => {
 
 });
 
-app.post("/encoder/hyper-light", (req, res) => {
+app.post("/encoder/:gameName", (req, res) => {
 
     const reqBody = req.body;
+    const gameName = req.params.gameName;
 
-    const decodedText = encodeHyperlight(reqBody.originalFileText, reqBody.updatedJson);
+    const encoders = {
+        "hyperlight-drifter": encodeHyperlight,
+        "undertale": encodeHyperlight,
+        "celeste": encodeHyperlight,
+        "subnautica": encodeHyperlight
+    };
+
+    const encoder = encoders[gameName];
+
+    if (!encoder) {
+        return res.status(404).json({
+            success: false,
+            message: "Unsupported game."
+        });
+    }
+
+    const encodedText = encoder(
+        reqBody.originalFileText,
+        reqBody.updatedJson
+    );
 
     res.json({
         success: true,
-        decodedText: decodedText
+        encodedText: encodedText
     }); 
 
 });
