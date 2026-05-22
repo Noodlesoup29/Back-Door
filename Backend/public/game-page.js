@@ -4,6 +4,7 @@ const dropZone = document.getElementById("drop-zone");
 const uploadFormTxt = document.getElementById("upload-form-field-container");
 const downloadBtn = document.getElementById("file-download-btn");
 const fieldSearchBar = document.getElementById("upload-form-field-search");
+const changeFileBtn = document.getElementById("change-input-file-btn");
 
 let fileName = "";
 let initialFileValue = "";
@@ -105,6 +106,15 @@ function cleanFieldValue(value) {
 
     return value;
 }
+
+changeFileBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.reload();
+})
+
+uploadForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+});
 
 fieldSearchBar.addEventListener("input", (e) => {
 
