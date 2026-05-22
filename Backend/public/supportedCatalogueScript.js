@@ -27,10 +27,10 @@ class Game {
 
 const games = [];
 
-games.push(new Game("Undertale", "Photos/Undertale-thumbnail.png", "/games/undertale"));
 games.push(new Game("Hyperlight Drifter", "Photos/Hyperlight-drifter-thumbnail.png", "/games/hyperlight-drifter"));
+games.push(new Game("Undertale", "Photos/Undertale-thumbnail.png", "/games/undertale"));
 games.push(new Game("Celeste", "Photos/Celeste-thumbnail.png", "/games/celeste"));
-games.push(new Game("Subnautica", "Photos/Subnautica-thumbnail.png", "/games/subnautica"));
+//games.push(new Game("Subnautica", "Photos/Subnautica-thumbnail.png", "/games/subnautica"));
 
 for (let game of games) {
     gameContainer.appendChild(game.createCard());

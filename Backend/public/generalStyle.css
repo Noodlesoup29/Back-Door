@@ -180,6 +180,10 @@ body {
     pointer-events: none;
 }
 
+.footer-ul {
+    color: white;
+}
+
 /*-------------------ID STYLES--------------*/
 
 #nav-ul {
