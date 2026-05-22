@@ -50,6 +50,25 @@ export async function detectSaveStructure(rawSaveFile){
 }
 
 export async function analyzeSaveFile(decodedJSON, gameName) {
+    const response = await groq.chat.completions.create({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+            {
+                role: "system",
+                content: 
+                    `
+                    You are a game save file expert. For each variable:
+                    1. Assign a risk level:
+                        1 = safe to change freely
+                        2 = low risk, minor consequences
+                        3 = medium risk, could affect progression
+                        4 = high risk, could break the game
+                    2. Suggest safe value ranges where possible
+                    Respond in JSON only.
+                    `
+            }
+        ]
+    })
 }
 
 import fs from "fs";
