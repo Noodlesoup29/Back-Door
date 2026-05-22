@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import nodemailer from "nodemailer";
 
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
+import { decodeUndertale, encodeUndertale } from "./decoding_algorithms/undertale-decoder.js";
 
 dotenv.config();
 
@@ -84,7 +85,7 @@ app.post("/decoder/:gameName", (req, res) => {
     
     const decoders = {
         "hyperlight-drifter": decodeHyperlight,
-        "undertale": decodeHyperlight,
+        "undertale": decodeUndertale,
         "celeste": decodeHyperlight,
         "subnautica": decodeHyperlight
     };
@@ -114,7 +115,7 @@ app.post("/encoder/:gameName", (req, res) => {
 
     const encoders = {
         "hyperlight-drifter": encodeHyperlight,
-        "undertale": encodeHyperlight,
+        "undertale": encodeUndertale,
         "celeste": encodeHyperlight,
         "subnautica": encodeHyperlight
     };
