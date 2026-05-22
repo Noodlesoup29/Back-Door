@@ -49,7 +49,13 @@ export async function detectSaveStructure(rawSaveFile){
     return response.choices[0].message.content;
 }
 
-export async function analyzeSaveFile(decodedJSON, gameName) {
+let change = {
+    variableName: "sword",
+    old: 10,
+    new: "false"
+}
+
+export async function analyzeSaveFile(originalJSON, change, gameName) {
     const response = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: [
@@ -57,15 +63,26 @@ export async function analyzeSaveFile(decodedJSON, gameName) {
                 role: "system",
                 content: 
                     `
-                    You are a game save file expert. For each variable:
-                    1. Assign a risk level:
+                    You are a game save file expert. 
+                    For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.from} to ${change.to}.
+                    You are given the full save file for context.
+                    1. Analyze a change to the game and assign a risk level:
                         1 = safe to change freely
                         2 = low risk, minor consequences
                         3 = medium risk, could affect progression
                         4 = high risk, could break the game
                     2. Suggest safe value ranges where possible
-                    Respond in JSON only.
+                    Respond in JSON only. Example:
+                    {
+                        "riskLevel": 1,
+                        "safeRange": "0-100"
+                    }
                     `
+            },
+            {
+                role: "user",
+                content: `Full save file for context: ${JSON.stringify(originalJSON)}. 
+                        Analyze this change: "${change.variableName}" changed from ${change.old} to ${change.new}.`
             }
         ]
     })
@@ -86,5 +103,5 @@ const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Bac
 
 const decodedJSON = decodeHyperlight(rawText);
 
-const flags = await analyzeSaveFile(decodedJSON)
+const flags = await analyzeSaveFile(decodedJSON, change, "Hyperlight Drifter");
 console.log(flags);
