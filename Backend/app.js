@@ -1,11 +1,12 @@
-require('dotenv').config(); //Comment
+import dotenv from "dotenv";
+import express from "express";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import nodemailer from "nodemailer";
 
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
+import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
 
-const {decodeHyperlight, encodeHyperlight} = require("./decoding_algorithms/hyperlight-decoder");
+dotenv.config();
 
 const app = express();
 app.set('view engine', 'ejs');

@@ -104,7 +104,7 @@ function encodeHyperlight(originalFileText, updatedJson) {
 
 }
 
-module.exports = {
+export {
     decodeHyperlight,
     encodeHyperlight
 };
