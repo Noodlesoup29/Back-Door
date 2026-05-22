@@ -49,13 +49,10 @@ export async function detectSaveStructure(rawSaveFile){
     return response.choices[0].message.content;
 }
 
-let change = {
-    variableName: "sword",
-    old: 10,
-    new: "false"
-}
+export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) {
 
-export async function analyzeSaveFile(originalJSON, change, gameName) {
+    const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
+
     const response = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: [
@@ -65,6 +62,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName) {
                     `
                     You are a game save file expert. 
                     For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.from} to ${change.to}.
+                    ${additionalInfo}
                     You are given the full save file for context.
                     1. Analyze a change to the game and assign a risk level:
                         1 = safe to change freely
@@ -103,5 +101,14 @@ const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Bac
 
 const decodedJSON = decodeHyperlight(rawText);
 
+let change = {
+    variableName: "sword",
+    old: 10,
+    new: "false"
+}
+
 const flags = await analyzeSaveFile(decodedJSON, change, "Hyperlight Drifter");
-console.log(flags);
+console.log("Without context", flags);
+
+const flags2 = await analyzeSaveFile(decodedJSON, change, "Hyperlight Drifter", "Health in Hyperlight Drifter maxes out at 8. Values above 8 are invalid.");
+console.log("With context", flags2);
