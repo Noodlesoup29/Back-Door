@@ -13,15 +13,15 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
 app.use(express.static('public'));
 app.use(express.urlencoded({extended : true}));
 app.use(morgan('dev'));
 app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -178,12 +178,13 @@ app.post("/contact/send", async (req, res) => {
 app.post("/analyze-change", async(req, res) => {
     try{
         const { originalJSON, change, gameName } = req.body;
+
         const flag = await analyzeSaveFile(originalJSON, change, gameName);
         res.json(flag);
     }
     catch(error){
         console.log(error);
-        rres.status(500).json({
+        res.status(500).json({
             success: false,
             message: "Failed to analyze change"
         })

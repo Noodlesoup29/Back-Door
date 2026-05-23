@@ -61,37 +61,42 @@ class Field {
         elementHeaderValue.textContent = "Field Value";
 
         elementValue.addEventListener("change", async (e) => {
-            const oldValue = cleanFieldValue(e.target.dataset.original);
-            const newValue = cleanFieldValue(e.target.value);
+            try{ 
+                const oldValue = cleanFieldValue(e.target.dataset.original);
+                const newValue = cleanFieldValue(e.target.value);
 
-            if (newValue === oldValue) {
-                elementValue.style.borderColor = "#cfcbc5";
-                return;
+                if (newValue === oldValue) {
+                    elementValue.style.borderColor = "#cfcbc5";
+                    return;
+                }
+
+                const change = {
+                    variableName: this.name,
+                    old: oldValue,
+                    new: newValue
+                };
+                
+                const response = await fetch("/analyze-change", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ originalJSON, change, gameName })
+                });
+
+                const result = await response.json();
+                console.log(this.name, newValue, "to", oldValue, "riskLevel:", result.riskLevel);
+            
+                const colors = {
+                    1: root.getPropertyValue("--success"),
+                    2: root.getPropertyValue("--warning"),
+                    3: root.getPropertyValue("--danger")
+                };
+
+                elementValue.style.borderColor = colors[Number(result.riskLevel)];
+        
             }
-
-            const change = {
-                variableName: this.name,
-                old: oldValue,
-                new: newValue
-            };
-            
-            const response = await fetch("/analyze-change", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ originalJSON, change, gameName })
-            });
-
-            const result = await response.json();
-           
-            const colors = {
-                1: root.getPropertyValue("--success"),
-                2: root.getPropertyValue("--warning"),
-                3: root.getPropertyValue("--danger"),
-                4: root.getPropertyValue("--superdanger")
-            };
-
-            elementValue.style.borderColor = colors[result.riskLevel];
-            
+            catch(error){
+                console.error("Error when changing game variables:", error);
+            }
         });
 
         return elementContainer;

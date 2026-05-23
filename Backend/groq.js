@@ -51,50 +51,54 @@ export async function detectSaveStructure(rawSaveFile){
 }
 
 export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) {
+    console.log("analyzeSaveFile called");
+    try{
+        
+        const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
 
-    const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
+        const response = await groq.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+                {
+                    role: "system",
+                    content: 
+                        `
+                        You are a game save file expert. 
+                        For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.old} to ${change.new}.
+                        ${additionalInfo}
+                        You are given the full save file for context.
+                        1. Analyze a change to the game and assign a risk level:
+                            1 = safe (simple numeric stats, display names, visual settings, difficulty toggles)
+                            2 = risky (progression flags, unlocks, counters, timers, inventory)
+                            3 = dangerous (structural data, encoded strings, coordinates, room IDs, event arrays, enemy states)
+                        2. Suggest safe value ranges whenever possible. If unknown, return null.
+                        Respond in JSON only, with exactly one number for riskLevel. Do not wrap in markdown or backticks. Example:
+                        {
+                            "riskLevel": 1,
+                            "safeRange": "0-100"
+                        }
+                        `
+                },
+                {
+                    role: "user",
+                    content: `Full save file for context: ${JSON.stringify(originalJSON)}. 
+                            Analyze this change: "${change.variableName}" changed from ${change.old} to ${change.new}.
+                            Look at the complexity of other values in the save file to calibrate your risk assessment.`
+                }
+            ]
+        })
 
-    const response = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-            {
-                role: "system",
-                content: 
-                    `
-                    You are a game save file expert. 
-                    For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.old} to ${change.new}.
-                    ${additionalInfo}
-                    You are given the full save file for context.
-                    1. Analyze a change to the game and assign a risk level:
-                        1 = safe to change freely
-                        2 = low risk, minor consequences
-                        3 = medium risk, could affect progression
-                        4 = high risk, could break the game
-                    2. Suggest safe value ranges where possible
-                    Respond in JSON only. Example:
-                    {
-                        "riskLevel": 1,
-                        "safeRange": "0-100"
-                    }
-                    `
-            },
-            {
-                role: "user",
-                content: `Full save file for context: ${JSON.stringify(originalJSON)}. 
-                        Analyze this change: "${change.variableName}" changed from ${change.old} to ${change.new}.`
-            }
-        ]
-    })
-
-    return response.choices[0].message.content;
+        const raw = response.choices[0].message.content.trim();
+        console.log(raw);
+        return JSON.parse(raw);
+    }
+    catch(error){
+        console.log("analyzeSaveFile error:", error);
+    }
 }
 
-/*import fs from "fs";
 
-const raw = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Backend/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
-const structure = await detectSaveStructure(raw);
-console.log(structure);*/
-
+/*
 import fs from "fs";
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
 
@@ -108,8 +112,10 @@ let change = {
     new: "false"
 }
 
+
 const flags = await analyzeSaveFile(decodedJSON, change, "Hyperlight Drifter");
 console.log("Without context", flags);
 
 const flags2 = await analyzeSaveFile(decodedJSON, change, "Hyperlight Drifter", "Health in Hyperlight Drifter maxes out at 8. Values above 8 are invalid.");
 console.log("With context", flags2);
+*/
