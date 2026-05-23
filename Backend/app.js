@@ -183,6 +183,7 @@ app.post("/contact/send", async (req, res) => {
 });
 
 app.post("/analyze-change", async(req, res) => {
+    /*
     try{
         const { originalJSON, change, gameName } = req.body;
 
@@ -196,6 +197,11 @@ app.post("/analyze-change", async(req, res) => {
             message: "Failed to analyze change"
         })
     }
+    */
+    res.status(500).json({
+        success: false,
+        message: "Failed to analyze change"
+    })
 })
 
 const PORT = process.env.PORT || 3000;
