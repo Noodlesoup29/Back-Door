@@ -5,54 +5,81 @@
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On Windows: </h3>
             <code class = "catalog-desc-file-location">
-                C:\Users\[username]\AppData\Local\HyperLightDrifter
+                C:\Users\[YourUsername]\AppData\Local\UNDERTALE
+            </code>
+            <br><br>
+            <code class = "catalog-desc-file-location">
+                You can also paste into the file explorer search bar: <br><br>%localappdata%\UNDERTALE
             </code>
         </section>
 
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On macOS: </h3>
             <code class = "catalog-desc-file-location">
-                /Users/[username]/Library/Application Support/com.HeartMachine.HyperLightDrifter
+                /Users/[username]/Library/Application Support/com.tobyfox.undertale
             </code>
         </section>
 
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On Linux: </h3>
             <code class = "catalog-desc-file-location">
-                /home/[username]/.config/HyperLightDrifter
+                /home/[username]/.config/UNDERTALE
             </code>
         </section>
 
         <p class = "catalog-desc-text"> 
-            After locating the save folder, the file name is 
-            <code>HyperLight_RecordOfTheDrifter_0.sav</code><br>
-            Save a copy of this to a separate folder, then 
-            open that file on our converter.
+            After locating the save folder, there are 3 primary save files.
         </p>
+        <ul class = "catalog-desc-text">
+            <li><code class = "catalog-desc-text">file0:</code> Main save file used when the game loads from a SAVE point</li>
+            <li><code class = "catalog-desc-text">file9:</code> Hidden/autosave-style state and game-over reload behavior</li>
+            <li><code class = "catalog-desc-text">undertale.ini:</code> Affects menu-displayed items. Does not affect gameplay</li>
+        </ul>
+        <p class = "catalog-desc-text"> 
+            Drag <code class = "catalog-desc-text">file0</code> into our save file display tool since its the primary file
+            that you can "safely" manipulate. See more details below.
+        </p>
+
     </div>
 
-    <img style = "flex: 1">
+    <section style = "flex: 1; display: flex; justify-content: center; align-items: center;">
+        <img class = "catalog-desc-img" src = "/Photos/Undertale-save-file-structure.png" style = "flex: 1">
+    </section>
+
 </div>
 
 <h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
 <p class = "catalog-desc-text">
-    Hyperight Drifter's save file is primarily encoded in <strong>base64</strong>.
-    This only applies to the JSON section. There is metadata before the JSON-encoded section
-    that is not in base64. We actually don't know what this section is encoded in. So the structure is really...
+    Undertale doesn't use any algorithm to encode their files but structures their save by "lines". When you open <code class = "catalog-desc-text">file0</code>,
+    you'll see numbers organized in separeted lines. Steam user Maligned Gray Freak researched each lines'
+    corresponding values as seen <a href = "https://steamcommunity.com/sharedfiles/filedetails/?id=1821253151">here</a>.
+    In summary, the structure of the save file is...
 </p>
 <p class = "catalog-desc-text">
-    <i class="fa-solid fa-arrow-right"></i> .sav = Metadata + JSON <br>
-    <i class="fa-solid fa-arrow-right"></i> .sav = {<em>Unknown Encoding Algorithm</em>} + {base64}
+    <i class="fa-solid fa-arrow-right"></i> Line 1: {your_save_name} => "Your save name" <br>
+    <i class="fa-solid fa-arrow-right"></i> Line 2: {Some #} => "Your LV Level" <br>
+    <i class="fa-solid fa-arrow-right"></i> Line 3: {Some #} => "Your max HP" <br>
+    <i class="fa-solid fa-arrow-right"></i> ...And so on <br>
 </p>
+
+<p class = "catalog-desc-text">
+    <strong>Important:</strong> Our save file decoder displays ALL the lines, but only KNOWN values are named.
+    For example, line 10 of <code class = "catalog-desc-text">file0</code> is named "Line 10"
+    with its corresponding value. This is because we werent able to figure out what ALL lines mean,
+    only the ones that Maligned Gray Freak were able to find. <strong>CHANGE THESE AT YOUR OWN RISK!</strong> 
+    (Make a backup at least)
+</p>
+
 <p class = "catalog-desc-text" >
     Here is the summary of how we decoded it:
     <ol class = "catalog-desc-text" style = "margin-bottom: 15vh;">
-        <li>Take .sav raw save file</li>
-        <li>Convert text to raw bytes</li>
-        <li>Find first instance of "{" in raw bytes</li>
-        <li>Then find last instance of "}" in raw bytes</li>
-        <li>Split raw byte data into three sections: Metadata + JSON + after data</li>
-        <li>Then finally display ONLY the json data</li>
+        <li>Take raw save file</li>
+        <li>Create a list of known pairings (i.e. Line 1 = Player name, etc)</li>
+        <li>Loop through each line (Each line is separated by a "\r\n")</li>
+        <li>Then store each value into a JSON</li>
+        <li>If a specific line of <code class = "catalog-desc-text">file0</code> is known, make the JSON element's key name its corresponding name</li>
+        <li>Otherwise, make it "Line + ${the_current_line_we_are_on_during_iteration}"</li>
+        <li>Then display the whole JSON to the user</li>
     </ol>
 </p>
         

@@ -31,13 +31,16 @@
         </p>
     </div>
 
-    <img style = "flex: 1">
+    <section style = "flex: 1; display: flex; justify-content: center; align-items: center;">
+        <img class = "catalog-desc-img" src = "/Photos/Hyperlight-drifter-save-file-structure.png" style = "flex: 1">
+    </section>
+
 </div>
 
 <h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
 <p class = "catalog-desc-text">
     Hyperight Drifter's save file is primarily encoded in <strong>base64</strong>.
-    This only applies to the JSON section. There is metadata before the JSON-encoded section
+    <strong>However,</strong> this only applies to the JSON section. There is metadata before the JSON-encoded section
     that is not in base64. We actually don't know what this section is encoded in. So the structure is really...
 </p>
 <p class = "catalog-desc-text">
