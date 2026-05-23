@@ -3,6 +3,8 @@ import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
 import { decodeUndertale, encodeUndertale } from "./decoding_algorithms/undertale-decoder.js";
@@ -10,16 +12,14 @@ import { decodeCeleste, encodeCeleste } from "./decoding_algorithms/celeste-deco
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set("views", path.join(__dirname, "views"));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended : true}));
 app.use(morgan('dev'));
 app.use(express.json());
@@ -180,3 +180,8 @@ app.post("/contact/send", async (req, res) => {
     }
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
