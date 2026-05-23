@@ -17,7 +17,7 @@ submitBtn.addEventListener("mouseenter", (e) => {
 submitBtn.addEventListener("mouseleave", (e) => {
 
     if (!submitted) {
-        e.target.style.backgroundColor = "var(--success)";
+        e.target.style.backgroundColor = "var(--success2)";
         e.target.style.color = "var(--cream)";
     }
 
