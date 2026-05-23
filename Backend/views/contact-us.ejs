@@ -51,8 +51,68 @@
 
             </div>
 
-            <div>
-                Hwlloe
+            <div class = "contact-container-child">
+                <h3>Frequently Asked Questions</h3>
+
+                <section class="faq-section">
+                    <details class="faq-item">
+                        <summary>What is BackDoor?</summary>
+                        <p>
+                            BackDoor is a save-file editor and research tool for supported games.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Do I need to back up my save file?</summary>
+                        <p>
+                            Yes. Always make a copy before replacing or editing any save file.
+                            The reccomended approach is:
+                        </p>
+                        <ol>
+                            <li>Create a folder in your downloads folder</li>
+                            <li>Name it "Save File Copies" or something</li>
+                            <li>Copy all of your original save files into this folder</li>
+                            <li>Then use the files from THIS folder for BackDoor</li>   
+                            <li>When editing is finished, download, replace the copied file, then replace the original</li>
+                            <li><em>Make sure a backup exists somewhere</em></li>      
+                        </ol>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Why are only some games supported?</summary>
+                        <p>
+                            Every game stores save data differently, 
+                            so each game needs its own decoder and encoder.
+                            For example, Hyperlight Drifter encodes their saves in base64,
+                            while Undertale doesn't encode their files at all.
+                        </p>
+                        <p>
+                            Also, every game has a different structure. Hyperlight's is
+                            all in one line, while Celeste's is in XML.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Can BackDoor edit every save file?</summary>
+                        <p>
+                            No. Some saves are encrypted, compressed, binary, or undocumented.
+                            For example, we tried to implement <em>Subnautica</em> but their saves are in binary.
+                        </p>
+
+                        <p>
+                            Unless there is <em>Subnautica</em> save documentation online, there is no way
+                            to reliably decode these files.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Can I suggest a game?</summary>
+                        <p>
+                            Yes. Users can contact us with game suggestions, 
+                            especially if they know the save format or location.
+                        </p>
+                    </details>
+                </section>
             </div>
 
         </div>

@@ -2,19 +2,49 @@
 
 .contact-main {
     min-height: 100vh;
+    max-height: 100vh;
     background-color: var(--green-main);
     padding: 10vh 5vw 0vh 5vw
 }
 
 .contact-container {
-    display: grid;
+    display: flex;
+    max-height: 80%;
+}
 
-    grid-template-columns: 1fr 1fr;
-    row-gap: 5rem;
+.contact-container-child {
+    max-height: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-section {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.faq-item {
+    background-color: var(--cream);
+    padding: 1rem;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    border: 3px solid var(--green-dark);
+}
+
+.faq-item summary {
+    user-select: none;
+}
+
+.faq-item p {
+    
 }
 
 .subject-style {
     min-height: 5vh;
+    background-color: var(--cream);
     padding-left: 15px;
     margin-bottom: 5px;
     border-radius: 25px;
