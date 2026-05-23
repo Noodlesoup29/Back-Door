@@ -34,8 +34,8 @@ submitBtn.addEventListener("click", async (event) => {
         message: formData.get("subject-body")
     };
 
-    if (!(data.subject.trim().length != 0 && data.email.trim().length != 0 && data.message.trim().length != 0 && submitted == false)) {
-        submitTxt.textContent = "Please fill all the information!";
+    if (data.subject.trim().length == 0 || data.email.trim().length == 0 || data.message.trim().length == 0 || submitted == true) {
+        submitTxt.textContent = (!submitted) ? ("Please fill all the information!") : ("You already submitted!");
         submitTxt.style.opacity = 1;
     } else {
         try {

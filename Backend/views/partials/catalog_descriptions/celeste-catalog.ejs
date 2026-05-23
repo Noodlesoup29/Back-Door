@@ -5,54 +5,90 @@
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On Windows: </h3>
             <code class = "catalog-desc-file-location">
-                C:\Users\[username]\AppData\Local\HyperLightDrifter
+                C:\Program Files (x86)\Steam\steamapps\common\Celeste\Saves
             </code>
         </section>
 
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On macOS: </h3>
             <code class = "catalog-desc-file-location">
-                /Users/[username]/Library/Application Support/com.HeartMachine.HyperLightDrifter
+                /Users/[username]/Library/Application Support/Celeste/Saves
             </code>
         </section>
 
         <section class = "catalog-desc-container">
             <h2 class = "catalog-desc-subheader">On Linux: </h3>
             <code class = "catalog-desc-file-location">
-                /home/[username]/.config/HyperLightDrifter
+                /home/[username]/.local/share/Celeste/Saves
             </code>
         </section>
 
         <p class = "catalog-desc-text"> 
-            After locating the save folder, the file name is 
-            <code>HyperLight_RecordOfTheDrifter_0.sav</code><br>
-            Save a copy of this to a separate folder, then 
-            open that file on our converter.
+            After locating the save folder, there <rem>possibly</rem> 3 primary save files.
+            Each one corresponds to the 3 save files that you have on Celeste.
         </p>
+        <ul class = "catalog-desc-text">
+            <li><code class = "catalog-desc-text">0.celeste: </code> Save File #1</li>
+            <li><code class = "catalog-desc-text">1.celeste: </code> Save File #2</li>
+            <li><code class = "catalog-desc-text">2.celeste: </code> Save File #3</li>
+        </ul>
+        <p class = "catalog-desc-text"> 
+            Drag your desired save file in our editor to edit.
+        </p>
+
     </div>
 
-    <img style = "flex: 1">
+    <section style = "flex: 1; display: flex; justify-content: center; align-items: center;">
+        <img class = "catalog-desc-img" src = "/Photos/Celeste-save-file-structure.png" style = "flex: 1">
+    </section>
 </div>
 
 <h1 class = "catalog-desc-header">Encoding Algorithm Summary</h1>
 <p class = "catalog-desc-text">
-    Hyperight Drifter's save file is primarily encoded in <strong>base64</strong>.
-    This only applies to the JSON section. There is metadata before the JSON-encoded section
-    that is not in base64. We actually don't know what this section is encoded in. So the structure is really...
+    Celeste doesn't encode their text but uses <strong>XML</strong> to structure their code.
+    Because of this, decoding to JSON is a little more difficult. <br><br>There are 2 primary sections,
+    the <strong>global</strong> variables, and the <strong>area specific</strong> variables. On the XML,
+    it would look like:
 </p>
+
+<code class = "catalog-desc-text" style = "white-space: pre-wrap; overflow-x: auto;">
+&lt;SaveData&gt;
+    &lt;!-- GLOBAL VARIABLES SECTION --&gt;
+    &lt;Version&gt;1.4.0.0&lt;/Version&gt;
+    &lt;Name&gt;Madeline&lt;/Name&gt;
+    ...etc
+    &lt;RevealedChapter9&gt;true&lt;/RevealedChapter9&gt;
+    &lt;LastArea ID="1" Mode="Normal"&gt;&lt;/LastArea&gt;
+    
+    &lt;!-- AREA SPECIFIC SECTION --&gt;
+    &lt;Areas&gt;
+        ...Area stuff
+    &lt;/Areas&gt;
+&lt;/SaveData&gt;<br>
+</code>
+
 <p class = "catalog-desc-text">
-    <i class="fa-solid fa-arrow-right"></i> .sav = Metadata + JSON <br>
-    <i class="fa-solid fa-arrow-right"></i> .sav = {<em>Unknown Encoding Algorithm</em>} + {base64}
+    Our decoder <strong>ONLY</strong> reads the global sections since they don't contain
+    much nested XML formatting, and don't contain attributes.
 </p>
+
+<p class = "catalog-desc-text">
+    Lastly, the contents of the XML file are very easy to change. Opening the file
+    on a text editor can still easily allow you to edit the variables. Escpecially
+    the <code class = "catalog-desc-text"><strong>&lt;Areas&gt;</strong></code> section.
+</p>
+
+<p class = "catalog-desc-text">
+    To understand more about Celeste save files, visit <a href="https://frissyn.gitbook.io/celeste-saves">this website</a> to see more.
+</p>
+
 <p class = "catalog-desc-text" >
     Here is the summary of how we decoded it:
     <ol class = "catalog-desc-text" style = "margin-bottom: 15vh;">
         <li>Take .sav raw save file</li>
-        <li>Convert text to raw bytes</li>
-        <li>Find first instance of "{" in raw bytes</li>
-        <li>Then find last instance of "}" in raw bytes</li>
-        <li>Split raw byte data into three sections: Metadata + JSON + after data</li>
-        <li>Then finally display ONLY the json data</li>
+        <li>Use an XMLParser and XMLBuilder</li>
+        <li>Create a JSON with only neccessary variables (Global values)</li>
+        <li>Then display that to the user</li>
     </ol>
 </p>
         

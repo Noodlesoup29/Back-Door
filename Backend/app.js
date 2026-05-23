@@ -3,17 +3,25 @@ import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
+import { decodeUndertale, encodeUndertale } from "./decoding_algorithms/undertale-decoder.js";
+import { decodeCeleste, encodeCeleste } from "./decoding_algorithms/celeste-decoder.js";
+
 import { analyzeSaveFile } from "./groq.js";
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set("views", path.join(__dirname, "views"));
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended : true}));
 app.use(morgan('dev'));
 app.use(express.json());
@@ -30,6 +38,10 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 })
+
+app.get("/", (req, res) => {
+  res.redirect("/home");
+});
 
 app.get('/home', (req, res) => {
     res.render('home');
@@ -85,8 +97,8 @@ app.post("/decoder/:gameName", (req, res) => {
     
     const decoders = {
         "hyperlight-drifter": decodeHyperlight,
-        "undertale": decodeHyperlight,
-        "celeste": decodeHyperlight,
+        "undertale": decodeUndertale,
+        "celeste": decodeCeleste,
         "subnautica": decodeHyperlight
     };
 
@@ -115,8 +127,8 @@ app.post("/encoder/:gameName", (req, res) => {
 
     const encoders = {
         "hyperlight-drifter": encodeHyperlight,
-        "undertale": encodeHyperlight,
-        "celeste": encodeHyperlight,
+        "undertale": encodeUndertale,
+        "celeste": encodeCeleste,
         "subnautica": encodeHyperlight
     };
 
@@ -191,3 +203,8 @@ app.post("/analyze-change", async(req, res) => {
     }
 })
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

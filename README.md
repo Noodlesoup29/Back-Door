@@ -79,9 +79,6 @@ http://localhost:3000/home
 | `/supported-games` | Supported games page |
 | `/contact-us` | Contact page |
 
-# API Keys
-GROQ_API_KEY=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
-
 ## Author
 
 Nathan Lor
