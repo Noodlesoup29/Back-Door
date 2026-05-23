@@ -46,7 +46,8 @@ export async function detectSaveStructure(rawSaveFile){
         ]
     })
 
-    return response.choices[0].message.content;
+    const raw = response.choices[0].message.content.trim();
+    return JSON.parse(raw);
 }
 
 export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) {
@@ -61,7 +62,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) 
                 content: 
                     `
                     You are a game save file expert. 
-                    For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.from} to ${change.to}.
+                    For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.old} to ${change.new}.
                     ${additionalInfo}
                     You are given the full save file for context.
                     1. Analyze a change to the game and assign a risk level:
@@ -97,7 +98,7 @@ console.log(structure);*/
 import fs from "fs";
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
 
-const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Backend/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
+const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Assests/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
 
 const decodedJSON = decodeHyperlight(rawText);
 

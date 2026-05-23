@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import nodemailer from "nodemailer";
 
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
+import { analyzeSaveFile } from "./groq.js";
 
 dotenv.config();
 
@@ -173,4 +174,19 @@ app.post("/contact/send", async (req, res) => {
 
     }
 });
+
+app.post("/analyze-change", async(req, res) => {
+    try{
+        const { originalJSON, change, gameName } = req.body;
+        const flag = await analyzeSaveFile(originalJSON, change, gameName);
+        res.json(flag);
+    }
+    catch(error){
+        console.log(error);
+        rres.status(500).json({
+            success: false,
+            message: "Failed to analyze change"
+        })
+    }
+})
 
