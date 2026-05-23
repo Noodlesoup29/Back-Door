@@ -10,6 +10,8 @@ import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperl
 import { decodeUndertale, encodeUndertale } from "./decoding_algorithms/undertale-decoder.js";
 import { decodeCeleste, encodeCeleste } from "./decoding_algorithms/celeste-decoder.js";
 
+import { analyzeSaveFile } from "./groq.js";
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,6 +25,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended : true}));
 app.use(morgan('dev'));
 app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -179,6 +186,22 @@ app.post("/contact/send", async (req, res) => {
 
     }
 });
+
+app.post("/analyze-change", async(req, res) => {
+    try{
+        const { originalJSON, change, gameName } = req.body;
+
+        const flag = await analyzeSaveFile(originalJSON, change, gameName);
+        res.json(flag);
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to analyze change"
+        })
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 

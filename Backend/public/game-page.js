@@ -1,3 +1,4 @@
+
 const uploadForm = document.getElementById("upload-form");
 const saveFile = document.getElementById("save-file-input");
 const dropZone = document.getElementById("drop-zone");
@@ -6,8 +7,12 @@ const downloadBtn = document.getElementById("file-download-btn");
 const fieldSearchBar = document.getElementById("upload-form-field-search");
 const changeFileBtn = document.getElementById("change-input-file-btn");
 
+const root = getComputedStyle(document.documentElement);
+
 let fileName = "";
 let initialFileValue = "";
+let originalJSON = {};      
+let gameName = window.location.pathname.slice(7); 
 
 class Field {
 
@@ -18,7 +23,7 @@ class Field {
 
     createRow() {
 
-        //Delcare Elements
+        //Declare Elements
         const elementContainer = document.createElement("div");
         const elementMiniContainerName = document.createElement("div");
         const elementMiniContainerValue = document.createElement("div");
@@ -50,9 +55,49 @@ class Field {
         //Set values
         elementName.textContent = (this.name.length == 0) ? ("") : this.name;
         elementValue.value = (this.field.length == 0) ? ("") : this.field;
+        elementValue.dataset.original = this.field;
 
         elementHeaderName.textContent = "Field Name";
         elementHeaderValue.textContent = "Field Value";
+
+        elementValue.addEventListener("change", async (e) => {
+            try{ 
+                const oldValue = cleanFieldValue(e.target.dataset.original);
+                const newValue = cleanFieldValue(e.target.value);
+
+                if (newValue === oldValue) {
+                    elementValue.style.borderColor = "#cfcbc5";
+                    return;
+                }
+
+                const change = {
+                    variableName: this.name,
+                    old: oldValue,
+                    new: newValue
+                };
+                
+                const response = await fetch("/analyze-change", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ originalJSON, change, gameName })
+                });
+
+                const result = await response.json();
+                console.log(this.name, newValue, "to", oldValue, "riskLevel:", result.riskLevel);
+            
+                const colors = {
+                    1: root.getPropertyValue("--success"),
+                    2: root.getPropertyValue("--warning"),
+                    3: root.getPropertyValue("--danger")
+                };
+
+                elementValue.style.borderColor = colors[Number(result.riskLevel)];
+        
+            }
+            catch(error){
+                console.error("Error when changing game variables:", error);
+            }
+        });
 
         return elementContainer;
 
@@ -228,6 +273,7 @@ saveFile.addEventListener("change", async (e) => {
     });
 
     const result = await response.json();
+    originalJSON = result.decodedText;
 
     if (result.decodedText.length !== 0) {
         dropZone.style.display = "none";
