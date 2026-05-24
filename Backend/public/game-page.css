@@ -121,6 +121,14 @@
     margin: 0 auto 0.5rem auto;
 }
 
+.form-field-safe-range {
+    font-size: 0.75rem;
+    color: grey;
+    margin: 0.25rem 0 0 0;
+    padding-left: 1rem;
+    min-height: 1rem; 
+}
+
 .catalog-desc-img {
     max-width: 100%;
     border-radius: 25px;

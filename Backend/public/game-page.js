@@ -27,8 +27,10 @@ class Field {
         const elementContainer = document.createElement("div");
         const elementMiniContainerName = document.createElement("div");
         const elementMiniContainerValue = document.createElement("div");
+
         const elementName = document.createElement("p");
         const elementValue = document.createElement("input");
+        const elementSafeRange = document.createElement("p");
 
         const elementHeaderName = document.createElement("h3");
         const elementHeaderValue = document.createElement("h3");
@@ -39,6 +41,7 @@ class Field {
 
         elementMiniContainerValue.appendChild(elementHeaderValue);
         elementMiniContainerValue.appendChild(elementValue);
+        elementMiniContainerValue.appendChild(elementSafeRange);
 
         elementContainer.appendChild(elementMiniContainerName);
         elementContainer.appendChild(elementMiniContainerValue);
@@ -52,6 +55,8 @@ class Field {
         elementHeaderName.classList.add("form-field-name-label");
         elementHeaderValue.classList.add("form-field-name-label");
 
+        elementSafeRange.classList.add("form-field-safe-range");
+
         //Set values
         elementName.textContent = (this.name.length == 0) ? ("") : this.name;
         elementValue.value = (this.field.length == 0) ? ("") : this.field;
@@ -60,6 +65,8 @@ class Field {
         elementHeaderName.textContent = "Field Name";
         elementHeaderValue.textContent = "Field Value";
 
+        elementSafeRange.textContent = "";
+
         elementValue.addEventListener("change", async (e) => {
             try{ 
                 const oldValue = cleanFieldValue(e.target.dataset.original);
@@ -67,6 +74,7 @@ class Field {
 
                 if (newValue === oldValue) {
                     elementValue.style.borderColor = "#cfcbc5";
+                    elementSafeRange.textContent = "";
                     return;
                 }
 
@@ -83,7 +91,7 @@ class Field {
                 });
 
                 const result = await response.json();
-                console.log(this.name, newValue, "to", oldValue, "riskLevel:", result.riskLevel);
+                console.log(this.name, oldValue, "to", newValue, "riskLevel:", result.riskLevel);
             
                 const colors = {
                     1: root.getPropertyValue("--success"),
@@ -92,7 +100,10 @@ class Field {
                 };
 
                 elementValue.style.borderColor = colors[Number(result.riskLevel)];
-        
+
+                elementSafeRange.textContent = (result.safeRange) ? `Safe range: ${result.safeRange}` : "";
+                
+                console.log("safeRange:", result.safeRange, "riskLevel:", result.riskLevel);
             }
             catch(error){
                 console.error("Error when changing game variables:", error);
