@@ -101,7 +101,7 @@ class Field {
 
                 elementValue.style.borderColor = colors[Number(result.riskLevel)];
 
-                elementSafeRange.textContent = (result.safeRange) ? `Safe range: ${result.safeRange}` : "";
+                elementSafeRange.textContent = (result.safeRange) ? `Safe Range: ${result.safeRange}` : "";
                 
                 console.log("safeRange:", result.safeRange, "riskLevel:", result.riskLevel);
             }
