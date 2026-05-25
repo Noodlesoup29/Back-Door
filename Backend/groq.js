@@ -1,5 +1,7 @@
 import "dotenv/config";
 import Groq from "groq-sdk";
+import fs from "fs";
+import path from "path";
 
 const groq = new Groq({apiKey: process.env.GROQ_API_KEY});
 
@@ -50,11 +52,24 @@ export async function detectSaveStructure(rawSaveFile){
     return JSON.parse(raw);
 }
 
-export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) {
+export async function analyzeSaveFile(originalJSON, change, gameName) {
     console.log("analyzeSaveFile called");
     try{
         
-        const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
+        const folderPath = "./ai_notes"
+        const infoFolder = fs.readdirSync(folderPath);
+        let gameInfo = "";
+
+        for(const filePath of infoFolder){
+
+            const fileName = path.basename(filePath, "-info.txt");
+
+            if(fileName === gameName){
+                gameInfo = fs.readFileSync(`${folderPath}/${filePath}`, "utf-8");
+            }
+        }
+
+        //const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
 
         const response = await groq.chat.completions.create({
             model: "llama-3.3-70b-versatile",
@@ -65,7 +80,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) 
                         `
                         You are a game save file expert. 
                         For the game: ${gameName}, variable "${change.variableName}" was changed from ${change.old} to ${change.new}.
-                        ${additionalInfo}
+                        ${gameInfo}
                         You are given the full save file for context.
                         1. Analyze a change to the game and assign a risk level:
                             1 = safe (simple numeric stats, display names, visual settings, difficulty toggles)
@@ -88,6 +103,8 @@ export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) 
             ]
         })
 
+        console.log(gameInfo);
+
         const raw = response.choices[0].message.content.trim();
         console.log(raw);
         return JSON.parse(raw);
@@ -99,7 +116,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName, gameInfo) 
 
 
 /*
-import fs from "fs";
+
 import { decodeHyperlight, encodeHyperlight } from "./decoding_algorithms/hyperlight-decoder.js";
 
 const rawText = fs.readFileSync("/Users/ryandeng/Desktop/Ryan_code/Back-Door/Assests/testing_game_files/hyperlight_recordofthedrifter_0.sav", "utf-8");
