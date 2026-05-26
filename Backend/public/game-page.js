@@ -188,6 +188,39 @@ function cleanFieldValue(value) {
     return value;
 }
 
+async function handleFile(file) {
+    if (!file) return;
+
+    initialFileValue = await file.text();
+    fileName = file.name;
+
+    const response = await fetch(getGameAPIDecoderEndpoint(), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fileText: initialFileValue
+        })
+    });
+
+    const result = await response.json();
+    originalJSON = result.decodedText;
+
+    if (result.decodedText.length !== 0) {
+        dropZone.style.display = "none";
+        uploadFormTxt.style.display = "grid";
+        
+        for(const [fieldName, fieldValue] of Object.entries(result.decodedText)) {
+
+            const field = new Field(fieldName, fieldValue);
+            uploadFormTxt.appendChild(field.createRow());
+
+        }
+
+    }
+}
+
 changeFileBtn.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.reload();
@@ -265,38 +298,24 @@ downloadBtn.addEventListener("click", async (e)=> {
 
 saveFile.addEventListener("change", async (e) => {
 
+    handleFile(saveFile.files[0]);
+
+})
+
+dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
+    console.log("dragover");
+    dropZone.style.backgroundColor = "#cfcbc5";
+})
 
-    let file = saveFile.files[0];
-    if (!file) return;
+dropZone.addEventListener("dragleave", (e) => {
+    console.log("dragleave");
+    dropZone.style.backgroundColor = "";
+})
 
-    initialFileValue = await file.text();
-    fileName = file.name;
-
-    const response = await fetch(getGameAPIDecoderEndpoint(), {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fileText: initialFileValue
-        })
-    });
-
-    const result = await response.json();
-    originalJSON = result.decodedText;
-
-    if (result.decodedText.length !== 0) {
-        dropZone.style.display = "none";
-        uploadFormTxt.style.display = "grid";
-        
-        for(const [fieldName, fieldValue] of Object.entries(result.decodedText)) {
-
-            const field = new Field(fieldName, fieldValue);
-            uploadFormTxt.appendChild(field.createRow());
-
-        }
-
-    }
-
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    console.log("drop");
+    dropZone.style.backgroundColor = "";
+    handleFile(e.dataTransfer.files[0]);
 })
