@@ -1,6 +1,6 @@
 # Back Door
 
-Link: [https://back-door-np2i.onrender.com/home](url)
+Link: https://back-door-np2i.onrender.com/home
 
 A web app that makes save file manipulation easy.
 
