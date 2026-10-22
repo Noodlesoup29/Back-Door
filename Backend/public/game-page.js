@@ -91,6 +91,10 @@ class Field {
                 });
 
                 const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.message || "Failed to analyze change");
+                }
+
                 console.log(this.name, oldValue, "to", newValue, "riskLevel:", result.riskLevel);
             
                 const colors = {

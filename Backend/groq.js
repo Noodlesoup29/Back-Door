@@ -4,10 +4,11 @@ import fs from "fs";
 import path from "path";
 
 const groq = new Groq({apiKey: process.env.GROQ_API_KEY});
+const GROQ_MODEL = "openai/gpt-oss-120b";
 
 export async function detectSaveStructure(rawSaveFile){
     const response = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
+        model: GROQ_MODEL,
         messages: [
             {
                 role: "system",
@@ -72,7 +73,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName) {
         //const additionalInfo = gameInfo ? `Additional game info: ${gameInfo}` : "";
 
         const response = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: GROQ_MODEL,
             messages: [
                 {
                     role: "system",
@@ -111,6 +112,7 @@ export async function analyzeSaveFile(originalJSON, change, gameName) {
     }
     catch(error){
         console.log("analyzeSaveFile error:", error);
+        throw error;
     }
 }
 
